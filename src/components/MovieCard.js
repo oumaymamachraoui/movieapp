@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";
+
 
 function MovieCard({ movie }) {
   return (
@@ -9,18 +11,13 @@ function MovieCard({ movie }) {
         <Card.Img variant="top" src={movie.posterUrl} className="image" />
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
-          <Card.Text className="descript">{movie.description}</Card.Text>
+          <ReactStars edit={false} value={movie.rate}></ReactStars>
+
+          <Link to={`/description/${movie.description}`}> <Button>  Description </Button></Link>
           <Card.Text>
-            <ReactStars
-              count={5}
-              
-              size={24}
-              value={movie.rate}
-              activeColor="#ffd700"
-            />
             {" "}
           </Card.Text>
-          <Button variant="primary" href={movie.trailer}>
+          <Button variant="primary" href={movie.trailer} target={'_blanck'}>
             Regarder
           </Button>
         </Card.Body>

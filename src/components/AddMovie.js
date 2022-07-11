@@ -1,43 +1,27 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const AddMovie = ({ add }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [rate, setRate] = useState("");
   const [posterUrl, setPosterUrl] = useState("");
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  // const handleTitle = (e) => {
-  //   setTitle(e.target.value);
-  // };
-  // const handleDescription =(e)=>{
-  //   setDescription(e.target.value)
-  // }
-  // const handleRate =(e)=>{
-  //   setRate(e.target.value)
-  // }
-  // const handlePosterUrl =(e)=>{
-  //   setPosterUrl(e.target.value)
-  // }
+  const navigate =useNavigate();
 
   const handleAdd = () => {
     let newMovie = { title, rate, description, posterUrl };
     add(newMovie);
   };
+  const handleHome=()=>{
+    navigate(`/`)
+  }
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Ajouter un film
-      </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+      <Modal.Dialog>
+        <Modal.Header >
           <Modal.Title>Add new Movie</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -78,14 +62,14 @@ const AddMovie = ({ add }) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="secondary" onClick={handleHome}>
+            Home
           </Button>
           <Button variant="primary" onClick={handleAdd}>
             Save Changes
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal.Dialog>
     </div>
   );
 };

@@ -1,26 +1,41 @@
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AddMovie from "./components/AddMovie";
 import { moviesData } from "./components/Data";
-import Filter from "./components/Filter";
+import Description from "./components/Description";
 import MovieList from "./components/MovieList";
+import Navigation from "./components/Navigation";
 import "./style.css";
 
 function App() {
   const [movies, setMovies] = useState(moviesData);
-  const [inputSearch, setInputSearch]= useState("");
 
   const add = (newMovie) => {
     setMovies([...movies, newMovie]);
-  }
+  };
 
-  const [keyRate, setKeyRate]= useState(0);
 
   return (
     <div className="App">
-      <Filter inputSearch={inputSearch} setInputSearch={setInputSearch} keyRate={keyRate} setKeyRate={setKeyRate} />
-      <MovieList movies={movies} key={movies.id} inputSearch={inputSearch} keyRate={keyRate} />
-      <AddMovie add={add} />
+      <Navigation />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MovieList
+              movies={movies}
+              key={movies.id}
+            />
+          }
+        />
+        <Route path="/description/:description" element={<Description movie={movies}/>} />
+        <Route path="/add_movie" element={<AddMovie add={add} />} />
+        
+      </Routes>
+     
+
+        
     </div>
   );
 }
